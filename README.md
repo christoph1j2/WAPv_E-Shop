@@ -85,3 +85,4 @@
 * Ladění, optimalizace
 * Finalizace a příprava prezentace
 **************************************************************************
+* NOTE: Nefinální
