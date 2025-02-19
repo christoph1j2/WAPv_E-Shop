@@ -43,17 +43,17 @@
 * Tabulka `orders`: ID, user_id, date, celková_cena, stav
 * Tabulka `order_items`: ID, order_id, product_id, počet_kusů
 # 2. Rozdělení rolí v týmu
-## Člen A:
+## Člen A - Lukáš Bui:
 ### Design & frontend
 * Návrh UI/UX, wireframy, tvorba responzivního designu s využitím Bootstrapu
 * Implementace šablon v Latte
 * ...
-## Člen B:
+## Člen B - Lukáš Janda:
 ### Databáze a datové modely
 * Návrh ER diagramu a vytvoření databázové struktury
 * Implementace datobých modelů
 * ...
-## Člen C:
+## Člen C - Ernst Christoph Leschka:
 ### Business logika - backend
 * Vývoj controllerů (presenterů) dle MVC
 * Implementace obchodní logiky (správa objednávek, registrace, přihlašování, správa košíku ...)
