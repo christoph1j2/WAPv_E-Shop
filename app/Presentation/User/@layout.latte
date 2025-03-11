@@ -1,0 +1,16 @@
+{layout '../@layout.latte'}
+
+{block content}
+    <div class="user-container">
+        <aside>
+            <nav>
+                <a n:href="User:profile">Profile</a>
+                <a n:href="User:orders">My Orders</a>
+                <a n:href="User:settings">Settings</a>
+            </nav>
+        </aside>
+        <section class="user-content">
+            {include content}
+        </section>
+    </div>
+{/block}

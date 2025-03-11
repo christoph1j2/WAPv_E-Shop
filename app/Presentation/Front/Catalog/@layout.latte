@@ -1,0 +1,17 @@
+{layout '../@layout.latte'}  <!-- Inherits from Front layout -->
+
+{block content}
+    <div class="catalog-container">
+        <aside>
+            <h2>Categories</h2>
+            <ul>
+                <li n:foreach="$categories as $category">
+                    <a n:href="Catalog:category, id => $category->id">{$category->name}</a>
+                </li>
+            </ul>
+        </aside>
+        <section class="catalog-content">
+            {include content}
+        </section>
+    </div>
+{/block}

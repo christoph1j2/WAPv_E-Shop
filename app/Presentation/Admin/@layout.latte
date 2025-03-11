@@ -1,0 +1,17 @@
+{layout '../@layout.latte'}  <!-- Inherits global layout -->
+
+{block content}
+    <div class="admin-container">
+        <aside>
+            <nav>
+                <a n:href="Admin:Dashboard:default">Dashboard</a>
+                <a n:href="Admin:Orders:default">Orders</a>
+                <a n:href="Admin:Products:default">Products</a>
+                <a n:href="Admin:Users:default">Users</a>
+            </nav>
+        </aside>
+        <section class="admin-content">
+            {include content}
+        </section>
+    </div>
+{/block}
