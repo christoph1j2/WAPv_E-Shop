@@ -1,0 +1,73 @@
+{block content}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h2 class="h4 mb-0">Registrace</h2>
+                </div>
+                
+                <div class="card-body">
+                    {form registerForm class => 'needs-validation', novalidate => true}
+                        <div class="mb-3">
+                            {label username class => 'form-label' /}
+                            {input username class => 'form-control'}
+                            {if $form['username']->hasErrors()}
+                                <div class="invalid-feedback d-block">
+                                    {foreach $form['username']->getErrors() as $error}
+                                        {$error}
+                                    {/foreach}
+                                </div>
+                            {/if}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {label email class => 'form-label' /}
+                            {input email class => 'form-control'}
+                            {if $form['email']->hasErrors()}
+                                <div class="invalid-feedback d-block">
+                                    {foreach $form['email']->getErrors() as $error}
+                                        {$error}
+                                    {/foreach}
+                                </div>
+                            {/if}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {label password class => 'form-label' /}
+                            {input password class => 'form-control'}
+                            {if $form['password']->hasErrors()}
+                                <div class="invalid-feedback d-block">
+                                    {foreach $form['password']->getErrors() as $error}
+                                        {$error}
+                                    {/foreach}
+                                </div>
+                            {/if}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {label passwordVerify class => 'form-label' /}
+                            {input passwordVerify class => 'form-control'}
+                            {if $form['passwordVerify']->hasErrors()}
+                                <div class="invalid-feedback d-block">
+                                    {foreach $form['passwordVerify']->getErrors() as $error}
+                                        {$error}
+                                    {/foreach}
+                                </div>
+                            {/if}
+                        </div>
+                        
+                        {input send class => 'btn btn-primary w-100'}
+                    {/form}
+                    
+                    <hr>
+                    
+                    <div class="text-center">
+                        <p>Již máte účet? <a href="{plink Auth:login}" class="text-decoration-none">Přihlaste se</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

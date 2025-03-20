@@ -1,0 +1,20 @@
+{
+  "name": "laceshop",
+  "version": "1.0.0",
+  "description": "Nette Web Project\r =================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-bootstrap": "mkdir -p www/vendor/bootstrap && cp -r node_modules/bootstrap/dist/* www/vendor/bootstrap/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "bootstrap": "^5.3.3",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.14"
+  }
+}

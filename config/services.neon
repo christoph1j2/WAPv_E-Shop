@@ -1,0 +1,8 @@
+services:
+    router: App\Router\RouterFactory::createRouter
+
+application:
+    mapping:
+        Front: App\FrontModule\Presenters\*Presenter
+        Admin: App\AdminModule\Presenters\*Presenter
+        *: App\Presenters\*Presenter

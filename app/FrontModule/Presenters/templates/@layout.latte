@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{ifset title}{include title|stripHtml} | {/ifset}LaceShop</title>
+    
+    <!-- Bootstrap CSS (local) -->
+    <link rel="stylesheet" href="{$basePath}/vendor/bootstrap/css/bootstrap.min.css">
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+</head>
+<body class="bg-light min-vh-100">
+    <header class="bg-white shadow-sm">
+        <div class="container py-3">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="d-flex gap-3">
+                        <a href="{plink Homepage:}" class="text-dark text-decoration-none">LINK</a>
+                        <a href="#" class="text-dark text-decoration-none">LINK</a>
+                        <a href="#" class="text-dark text-decoration-none">LINK</a>
+                        <a href="#" class="text-dark text-decoration-none">LINK</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 text-center">
+                    <a href="{plink Homepage:}" class="text-dark text-decoration-none fs-3 fw-bold">LaceShop</a>
+                </div>
+                
+                <div class="col-md-4 text-end">
+                    <div class="d-flex justify-content-end align-items-center gap-3">
+                        <a href="#" class="text-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </a>
+                        
+                        {if $user->isLoggedIn()}
+                            <span>Vítej, {$user->getIdentity()->username}</span>
+                            <a href="{plink Auth:logout}" class="btn btn-outline-dark btn-sm">Odhlásit</a>
+                        {else}
+                            <a href="{plink Auth:login}" class="text-dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                </svg>
+                            </a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container mt-4">
+            {foreach $flashes as $flash}
+                <div class="alert alert-{$flash->type == 'success' ? 'success' : ($flash->type == 'error' ? 'danger' : 'info')} alert-dismissible fade show" role="alert">
+                    {$flash->message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {/foreach}
+        </div>
+        
+        {include content}
+    </main>
+
+    <!-- Bootstrap JS Bundle with Popper (local) -->
+    <script src="{$basePath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom scripts -->
+    <script src="{$basePath}/js/main.js"></script>
+</body>
+</html>
