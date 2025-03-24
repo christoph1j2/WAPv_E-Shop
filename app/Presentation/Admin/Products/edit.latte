@@ -1,0 +1,20 @@
+{extends '../@layout.latte'}
+
+{block content}
+<div class="container-fluid">
+    <h1 class="mt-4">Upravit produkt: {$product->name}</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            
+            {control productForm}
+        </div>
+    </div>
+    
+    <div class="mb-4">
+        <a href="{$basePath}/admin/products" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Zpět na seznam produktů
+        </a>
+    </div>
+</div>
+{/block}

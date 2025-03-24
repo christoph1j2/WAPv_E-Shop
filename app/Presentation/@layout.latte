@@ -1,40 +1,37 @@
+{* Presentation/@layout.latte *}
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-	<meta charset="UTF-8">
-	<title>{block title}E-Shop{/block}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Bootstrap CSS, můžeš využít CDN nebo lokální soubor -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="{$basePath}/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{block title}LaceShop - {block pageTitle}Domů{/block}{/block}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/styles.css">
 </head>
-<body>
-<header>
-	<!-- Základní hlavička, společná pro všechny moduly -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a n:href=":Front:default">Home</a>
-			<a n:href=":Admin:Dashboard:default">Admin</a>
-			<a n:href=":User:profile">Profile</a>
-		</div>
-	</nav>
-</header>
+<body class="d-flex flex-column min-vh-100"> <!-- Přidáno flexbox -->
+    <header class="bg-dark text-white p-3">
+        <h1 class="text-center">{block header}LaceShop{/block}</h1>
+    </header>
 
-<main class="container mt-4">
-	{include content}
-</main>
+    <main class="flex-grow-1 container py-4"> <!-- Flex-grow pro vyplnění -->
+        {block flashes}
+            {foreach $flashes as $flash}
+                <div class="alert alert-{$flash->type}">
+                    {$flash->message}
+                </div>
+            {/foreach}
+        {/block}
+        {block content}{/block}
+    </main>
 
-<footer class="bg-light text-center mt-4 py-3">
-	<div class="container">
-		&copy; {date('Y')} LaceShop. All rights reserved.
-	</div>
-</footer>
-
-{block scripts}
+    <footer class="bg-dark text-white text-center p-3 mt-4">
+        <p>{block footer}&copy; 2025 LaceShop. Všechna práva vyhrazena.{/block}</p>
+    </footer>
+    {* Scripts *}
+	{block scripts}
 	<script src="https://unpkg.com/nette-forms@3"></script>
-{/block}
-
-<!-- Bootstrap JS a další skripty -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	{/block}
 </body>
 </html>
+
+

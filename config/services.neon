@@ -1,5 +1,16 @@
 services:
 	- App\Core\RouterFactory::createRouter
+	- App\Presentation\Accessory\Model\Product
+	- App\Presentation\Accessory\Model\Category
+	- App\Presentation\Accessory\Model\Order
+	- App\Presentation\Accessory\Model\User
+	- App\Presentation\Accessory\Repository\ProductRepository
+	- App\Presentation\Accessory\Repository\CategoryRepository
+	- App\Presentation\Accessory\Repository\OrderRepository
+	- App\Presentation\Accessory\Repository\UserRepository
+
+	authorizator: App\Presentation\Accessory\Auth\Authorizator
+	security.authorizator: @authorizator
 
 
 search:

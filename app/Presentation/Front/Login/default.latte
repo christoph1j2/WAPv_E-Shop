@@ -1,0 +1,21 @@
+{extends '../@layout.latte'}
+
+{block content}
+    <h2>Přihlášení</h2>
+    <form n:name="loginForm">
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail:</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Heslo:</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mt-2">
+            <a href="{$basePath}/user/forgotPassword">Zapomněli jste heslo?</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Přihlásit se</button>
+    </form>
+
+    <p class="mt-2">Nemáte účet? <a href="{$basePath}/register">Registrujte se</a></p>
+{/block}

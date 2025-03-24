@@ -1,0 +1,126 @@
+{extends '../@layout.latte'}
+
+{block content}
+<div class="container-fluid mt-4">
+    <h1>Detail objednávky #{$order->id}</h1>
+    <p class="text-muted">Vytvořena: {$order->created_at|date:'j.n.Y H:i'}</p>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Stav objednávky</h5>
+                    <div>
+                        {form changeStatusForm}
+                            <div class="d-flex">
+                                <select n:name="status" class="form-select me-2">
+                                    <option value="pending" {if $order->status == 'pending'}selected{/if}>Čeká na zpracování</option>
+                                    <option value="processing" {if $order->status == 'processing'}selected{/if}>Zpracovává se</option>
+                                    <option value="shipped" {if $order->status == 'shipped'}selected{/if}>Odesláno</option>
+                                    <option value="delivered" {if $order->status == 'delivered'}selected{/if}>Doručeno</option>
+                                    <option value="cancelled" {if $order->status == 'cancelled'}selected{/if}>Zrušeno</option>
+                                </select>
+                                <button n:name="submit" class="btn btn-primary">Aktualizovat</button>
+                            </div>
+                        {/form}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        {if $order->status == 'pending'}
+                            <span class="badge bg-warning text-dark">Čeká na zpracování</span>
+                        {elseif $order->status == 'processing'}
+                            <span class="badge bg-info">Zpracovává se</span>
+                        {elseif $order->status == 'shipped'}
+                            <span class="badge bg-primary">Odesláno</span>
+                        {elseif $order->status == 'delivered'}
+                            <span class="badge bg-success">Doručeno</span>
+                        {elseif $order->status == 'cancelled'}
+                            <span class="badge bg-danger">Zrušeno</span>
+                        {else}
+                            <span class="badge bg-secondary">{$order->status}</span>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Položky objednávky</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Produkt</th>
+                                    <th class="text-end">Cena za kus</th>
+                                    <th class="text-center">Množství</th>
+                                    <th class="text-end">Celkem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {foreach $items as $item}
+                                <tr>
+                                    <td>{$item['product']->id}</td>
+                                    <td>
+                                        <a href="{$basePath}/admin/products/edit/{$item['product']->id}" target="_blank">
+                                            {$item['product']->name}
+                                        </a>
+                                    </td>
+                                    <td class="text-end">{$item['item']->unit_price} Kč</td>
+                                    <td class="text-center">{$item['item']->quantity}</td>
+                                    <td class="text-end">{$item['total_price']} Kč</td>
+                                </tr>
+                                {/foreach}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" class="text-end">Celková cena:</th>
+                                    <th class="text-end">{$order->total_price} Kč</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            {if $order->note}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Poznámka k objednávce</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">{$order->note}</p>
+                </div>
+            </div>
+            {/if}
+            
+            <a href="{$basePath}/admin/orders" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Zpět na seznam objednávek
+            </a>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Informace o zákazníkovi</h5>
+                </div>
+                <div class="card-body">
+                    {if $userData}
+                        <p><strong>Jméno:</strong> {$userData->name}</p>
+                        <p><strong>Email:</strong> {$userData->email}</p>
+                        <p><strong>Telefon:</strong> {$userData->phone ?: 'Nevyplněno'}</p>
+                        <p><strong>Adresa:</strong> {$userData->address ?: 'Nevyplněno'}</p>
+                        
+                    
+                    {else}
+                        <p class="text-muted">Uživatel byl smazán nebo objednávka byla vytvořena bez registrace.</p>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

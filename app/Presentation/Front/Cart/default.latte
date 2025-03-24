@@ -1,6 +1,67 @@
 {extends '../@layout.latte'}
 
 {block content}
-    <h2>Váš košík</h2>
-    <p>Zde se zobrazí produkty, které máte v košíku.</p>
+<div class="container mt-4">
+    <h1>Váš košík</h1>
+    
+    {if count($cartItems) > 0}
+    <div class="table-responsive mb-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Cena za kus</th>
+                    <th>Množství</th>
+                    <th>Celkem</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach $cartItems as $item}
+                <tr>
+                    <td>
+                        <a href="{$basePath}/catalog/product/{$item['product']->id}">{$item['product']->name}</a>
+                    </td>
+                    <td>{$item['product']->price} Kč</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="{link updateQuantity!, productId: $item['product']->id, quantity: $item['quantity'] - 1}" class="btn btn-sm btn-outline-secondary me-2">-</a>
+                            <span>{$item['quantity']}</span>
+                            <a href="{link updateQuantity!, productId: $item['product']->id, quantity: $item['quantity'] + 1}" class="btn btn-sm btn-outline-secondary ms-2">+</a>
+                        </div>
+                    </td>
+                    <td>{$item['price']} Kč</td>
+                    <td>
+                        <a href="{$basePath}/cart/remove/{$item['product']->id}" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu chcete odstranit tento produkt z košíku?')">
+                            <i class="fas fa-trash"></i> Odstranit
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-end">Celková cena:</th>
+                    <th>{$totalPrice} Kč</th>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="d-flex justify-content-between">
+        <a href="{$basePath}/catalog" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Pokračovat v nákupu
+        </a>
+        <a href="{$basePath}/cart/checkout" class="btn btn-success">
+            <i class="fas fa-check"></i> Dokončit objednávku
+        </a>
+    </div>
+    {else}
+    <div class="alert alert-info">
+        <p>Váš košík je prázdný.</p>
+        <a href="{$basePath}/catalog" class="btn btn-primary mt-2">Přejít do katalogu</a>
+    </div>
+    {/if}
+</div>
 {/block}

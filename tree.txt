@@ -1,0 +1,159 @@
+Folder PATH listing
+Volume serial number is 9020-0CB6
+C:.
+³   .gitignore
+³   .htaccess
+³   composer.json
+³   composer.lock
+³   drawSQL-image-export-2025-02-19.png
+³   E-Shop.sql
+³   figma-odkaz.txt
+³   README.md
+³   tree.txt
+³   
+ÃÄÄÄ.idea
+³       .gitignore
+³       modules.xml
+³       php.xml
+³       phpspec.xml
+³       vcs.xml
+³       WAPv_E-Shop.iml
+³       workspace.xml
+³       
+ÃÄÄÄapp
+³   ³   Bootstrap.php
+³   ³   
+³   ÃÄÄÄCore
+³   ³       RouterFactory.php
+³   ³       
+³   ÀÄÄÄPresentation
+³       ³   @layout.latte
+³       ³   BasePresenter.php
+³       ³   
+³       ÃÄÄÄAccessory
+³       ³   ³   LatteExtension.php
+³       ³   ³   
+³       ³   ÃÄÄÄAuth
+³       ³   ³       Auth.php
+³       ³   ³       
+³       ³   ÃÄÄÄBase
+³       ³   ³       BaseComponent.latte
+³       ³   ³       BaseComponent.php
+³       ³   ³       BaseForm.php
+³       ³   ³       BaseModel.php
+³       ³   ³       BaseRepository.php
+³       ³   ³       
+³       ³   ÃÄÄÄComponents
+³       ³   ³   ÃÄÄÄAddProduct
+³       ³   ³   ³       AddProductFormComponent.latte
+³       ³   ³   ³       AddProductFormComponent.php
+³       ³   ³   ³       
+³       ³   ³   ÃÄÄÄDummy
+³       ³   ³   ³       DummyComponent.latte
+³       ³   ³   ³       DummyComponent.php
+³       ³   ³   ³       
+³       ³   ³   ÃÄÄÄLogin
+³       ³   ³   ³       LoginFormComponent.latte
+³       ³   ³   ³       LoginFormComponent.php
+³       ³   ³   ³       
+³       ³   ³   ÃÄÄÄRegister
+³       ³   ³   ³       RegisterFormComponent.latte
+³       ³   ³   ³       RegisterFormComponent.php
+³       ³   ³   ³       
+³       ³   ³   ÃÄÄÄUpdateProduct
+³       ³   ³   ³       UpdateProductFormComponent.latte
+³       ³   ³   ³       UpdateProductFormComponent.php
+³       ³   ³   ³       
+³       ³   ³   ÀÄÄÄUpdateUser
+³       ³   ³           UpdateUserFormComponent.latte
+³       ³   ³           UpdateUserFormComponent.php
+³       ³   ³           
+³       ³   ÃÄÄÄModel
+³       ³   ³       Category.php
+³       ³   ³       Order.php
+³       ³   ³       Product.php
+³       ³   ³       User.php
+³       ³   ³       
+³       ³   ÀÄÄÄRepository
+³       ³           CategoryRepository.php
+³       ³           OrderRepository.php
+³       ³           ProductRepository.php
+³       ³           UserRepository.php
+³       ³           
+³       ÃÄÄÄAdmin
+³       ³   ³   @layout.latte
+³       ³   ³   AdminPresenter.php
+³       ³   ³   
+³       ³   ÃÄÄÄDashboard
+³       ³   ³       dashboard.latte
+³       ³   ³       DashboardPresenter.php
+³       ³   ³       
+³       ³   ÃÄÄÄEditor
+³       ³   ³       editor.latte
+³       ³   ³       EditorPresenter.php
+³       ³   ³       
+³       ³   ÃÄÄÄOrders
+³       ³   ³       orders.latte
+³       ³   ³       OrdersPresenter.php
+³       ³   ³       
+³       ³   ÃÄÄÄProducts
+³       ³   ³       products.latte
+³       ³   ³       ProductsPresenter.php
+³       ³   ³       
+³       ³   ÀÄÄÄUsers
+³       ³           users.latte
+³       ³           UsersPresenter.php
+³       ³           
+³       ÃÄÄÄError
+³       ³   ÃÄÄÄError4xx
+³       ³   ³       403.latte
+³       ³   ³       404.latte
+³       ³   ³       410.latte
+³       ³   ³       4xx.latte
+³       ³   ³       Error4xxPresenter.php
+³       ³   ³       
+³       ³   ÀÄÄÄError5xx
+³       ³           500.phtml
+³       ³           503.phtml
+³       ³           Error5xxPresenter.php
+³       ³           
+³       ÀÄÄÄFront
+³           ³   @layout.latte
+³           ³   FrontPresenter.php
+³           ³   
+³           ÃÄÄÄCart
+³           ³       cart.latte
+³           ³       CartPresenter.php
+³           ³       checkout.latte
+³           ³       
+³           ÃÄÄÄCatalog
+³           ³       catalog.latte
+³           ³       CatalogPresenter.php
+³           ³       category.latte
+³           ³       productDetail.latte
+³           ³       
+³           ÃÄÄÄHome
+³           ³       default.latte
+³           ³       HomePresenter.php
+³           ³       
+³           ÃÄÄÄLogin
+³           ³       default.latte
+³           ³       LoginPresenter.php
+³           ³       
+³           ÀÄÄÄUser
+³                   changePassword.latte
+³                   forgotPassword.latte
+³                   profile.latte
+³                   UserPresenter.php
+³                   
+ÃÄÄÄconfig
+³       common.neon
+³       services.neon
+³       
+
+ÀÄÄÄwww
+        .htaccess
+        favicon.ico
+        index.php
+        robots.txt
+        

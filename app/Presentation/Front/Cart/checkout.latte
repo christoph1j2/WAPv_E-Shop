@@ -1,0 +1,125 @@
+{extends '../@layout.latte'}
+
+{block content}
+<div class="container mt-4">
+    <h1>Dokončení objednávky</h1>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Dodací údaje</h5>
+                </div>
+                <div class="card-body">
+                    {form checkoutForm}
+                        {if $user->isLoggedIn()}
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="useExistingAddress" name="useExistingAddress" checked>
+                                    <label class="form-check-label" for="useExistingAddress">
+                                        Použít moje uložené údaje
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="existingAddressDetails" class="mb-4 p-3 bg-light rounded">
+                                <div><strong>Jméno:</strong> {$userData->name}</div>
+                                <div><strong>Adresa:</strong> {$userData->address ?: 'Není vyplněna'}</div>
+                                <div><strong>Telefon:</strong> {$userData->phone ?: 'Není vyplněn'}</div>
+                                <div><strong>Email:</strong> {$userData->email}</div>
+                            </div>
+                        {/if}
+                        
+                        <div id="formFields" {if $user->isLoggedIn()}class="d-none"{/if}>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label n:name="name" class="form-label">Jméno a příjmení</label>
+                                    <input n:name="name" class="form-control">
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label n:name="email" class="form-label">Email</label>
+                                    <input n:name="email" class="form-control">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label n:name="phone" class="form-label">Telefon</label>
+                                <input n:name="phone" class="form-control">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label n:name="address" class="form-label">Adresa</label>
+                                <textarea n:name="address" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label n:name="note" class="form-label">Poznámka k objednávce</label>
+                            <textarea n:name="note" class="form-control" rows="2"></textarea>
+                        </div>
+                        
+                        <button n:name="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-check-circle me-2"></i>Dokončit objednávku
+                        </button>
+                        
+                        <a href="{$basePath}/cart" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Zpět do košíku
+                        </a>
+                    {/form}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Souhrn objednávky</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group mb-3">
+                        {foreach $cartItems as $item}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <span class="fw-bold">{$item['product']->name}</span>
+                                    <span class="text-muted d-block">{$item['quantity']} ks × {$item['product']->price} Kč</span>
+                                </div>
+                                <span class="text-dark">{$item['price']} Kč</span>
+                            </li>
+                        {/foreach}
+                        <li class="list-group-item d-flex justify-content-between border-top">
+                            <span class="fw-bold">Celkem:</span>
+                            <span class="fw-bold">{$totalPrice} Kč</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const useExistingAddressCheckbox = document.getElementById('useExistingAddress');
+    if (!useExistingAddressCheckbox) return;
+    
+    const formFields = document.getElementById('formFields');
+    
+    // Initial state
+    toggleFormFields();
+    
+    // Event listener
+    useExistingAddressCheckbox.addEventListener('change', toggleFormFields);
+    
+    function toggleFormFields() {
+        const useExisting = useExistingAddressCheckbox.checked;
+        
+        if (useExisting) {
+            formFields.classList.add('d-none');
+        } else {
+            formFields.classList.remove('d-none');
+        }
+    }
+});
+</script>
+{/block}

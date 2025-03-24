@@ -1,0 +1,138 @@
+{extends '../@layout.latte'}
+
+{block content}
+<div class="container-fluid">
+    <h1 class="mt-4">Editor Dashboard</h1>
+    <p>Vítejte v editační sekci. Zde můžete spravovat produkty a prohlížet objednávky.</p>
+    
+    <div class="row mt-4">
+        <div class="col-xl-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Celkem produktů</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{$totalProducts}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-box fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="{$basePath}/admin/products" class="btn btn-primary mb-3">
+                <i class="fas fa-box"></i> Správa produktů
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="{$basePath}/admin/orders" class="btn btn-secondary mb-3">
+                <i class="fas fa-shopping-cart"></i> Přehled objednávek
+            </a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Nedávné produkty</h6>
+                </div>
+                <div class="card-body">
+                    {if $recentProducts && count($recentProducts)}
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Název</th>
+                                        <th>Skladem</th>
+                                        <th>Cena</th>
+                                        <th>Akce</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach $recentProducts as $product}
+                                    <tr>
+                                        <td>{$product->name}</td>
+                                        <td>
+                                            {if $product->stock_quantity <= 0}
+                                                <span class="badge bg-danger">Vyprodáno</span>
+                                            {elseif $product->stock_quantity < 5}
+                                                <span class="badge bg-warning">{$product->stock_quantity} ks</span>
+                                            {else}
+                                                <span class="badge bg-success">{$product->stock_quantity} ks</span>
+                                            {/if}
+                                        </td>
+                                        <td>{$product->price} Kč</td>
+                                        <td>
+                                            <a href="{$basePath}/admin/products/edit/{$product->id}" class="btn btn-sm btn-primary">Upravit</a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+                    {else}
+                        <p>Žádné nedávné produkty.</p>
+                    {/if}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Nedávné objednávky</h6>
+                </div>
+                <div class="card-body">
+                    {if $recentOrders && count($recentOrders)}
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Stav</th>
+                                        <th>Datum</th>
+                                        <th>Akce</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach $recentOrders as $order}
+                                    <tr>
+                                        <td>#{$order->id}</td>
+                                        <td>
+                                            {if $order->status == 'pending'}
+                                                <span class="badge bg-warning">Čeká na zpracování</span>
+                                            {elseif $order->status == 'processing'}
+                                                <span class="badge bg-info">Zpracovává se</span>
+                                            {elseif $order->status == 'shipped'}
+                                                <span class="badge bg-primary">Odesláno</span>
+                                            {elseif $order->status == 'delivered'}
+                                                <span class="badge bg-success">Doručeno</span>
+                                            {elseif $order->status == 'cancelled'}
+                                                <span class="badge bg-danger">Zrušeno</span>
+                                            {/if}
+                                        </td>
+                                        <td>{$order->created_at|date:'j.n.Y'}</td>
+                                        <td>
+                                            <a href="{$basePath}/admin/orders/detail/{$order->id}" class="btn btn-sm btn-primary">Detail</a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+                    {else}
+                        <p>Žádné nedávné objednávky.</p>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

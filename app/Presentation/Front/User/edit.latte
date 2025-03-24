@@ -1,0 +1,17 @@
+{extends '../@layout.latte'}
+
+{block content}
+    <h2>Upravit profil</h2>
+    <form n:name="editForm">
+        <div class="mb-3">
+            <label for="phone" class="form-label">Telefon:</label>
+            <input type="text" n:name="phone" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Adresa:</label>
+            <textarea n:name="address" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Uložit změny</button>
+    </form>
+    <a href="{$basePath}/user/profile" class="btn btn-secondary mt-2">Zpět</a>
+{/block}
