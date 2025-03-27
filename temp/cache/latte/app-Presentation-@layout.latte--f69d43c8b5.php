@@ -84,7 +84,7 @@ final class Template_f69d43c8b5 extends Latte\Runtime\Template
 		extract($ʟ_args);
 		unset($ʟ_args);
 
-		echo 'LaceShop - ';
+		echo 'LaceShop ';
 		$this->renderBlock('pageTitle', get_defined_vars()) /* line 7 */;
 	}
 
@@ -92,7 +92,6 @@ final class Template_f69d43c8b5 extends Latte\Runtime\Template
 	/** {block pageTitle} on line 7 */
 	public function blockPageTitle(array $ʟ_args): void
 	{
-		echo 'Domů';
 	}
 
 

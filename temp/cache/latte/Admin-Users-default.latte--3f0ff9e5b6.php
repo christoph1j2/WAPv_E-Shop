@@ -10,7 +10,7 @@ final class Template_3f0ff9e5b6 extends Latte\Runtime\Template
 	public const Source = 'C:\\xampp\\htdocs\\WAPv_E-Shop\\app\\Presentation\\Admin\\Users/default.latte';
 
 	public const Blocks = [
-		0 => ['content' => 'blockContent', 'title' => 'blockTitle'],
+		0 => ['content' => 'blockContent'],
 		'snippet' => ['grid' => 'blockGrid'],
 	];
 
@@ -45,24 +45,11 @@ final class Template_3f0ff9e5b6 extends Latte\Runtime\Template
 		extract($ʟ_args);
 		unset($ʟ_args);
 
-		$this->renderBlock('title', get_defined_vars()) /* line 4 */;
+		echo LR\Filters::escapeHtmlText($pageTitle) /* line 4 */;
+		echo "\n";
 		echo '<div id="', htmlspecialchars($this->global->snippetDriver->getHtmlId('grid')), '">';
 		$this->renderBlock('grid', [], null, 'snippet') /* line 5 */;
 		echo '</div>
-';
-	}
-
-
-	/** n:block="title" on line 4 */
-	public function blockTitle(array $ʟ_args): void
-	{
-		extract($this->params);
-		extract($ʟ_args);
-		unset($ʟ_args);
-
-		echo '<h1>';
-		echo LR\Filters::escapeHtmlText($pageTitle) /* line 4 */;
-		echo '</h1>
 ';
 	}
 

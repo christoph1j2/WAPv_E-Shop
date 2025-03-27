@@ -10,7 +10,7 @@ final class Template_5ae8c8c77b extends Latte\Runtime\Template
 	public const Source = 'C:\\xampp\\htdocs\\WAPv_E-Shop\\app\\Presentation\\Admin\\Orders/default.latte';
 
 	public const Blocks = [
-		['content' => 'blockContent', 'title' => 'blockTitle'],
+		['content' => 'blockContent'],
 	];
 
 
@@ -44,24 +44,12 @@ final class Template_5ae8c8c77b extends Latte\Runtime\Template
 		extract($ʟ_args);
 		unset($ʟ_args);
 
-		$this->renderBlock('title', get_defined_vars()) /* line 4 */;
-		echo "\n";
+		echo LR\Filters::escapeHtmlText($pageTitle) /* line 4 */;
+		echo '
+
+';
 		$ʟ_tmp = $this->global->uiControl->getComponent('ordersGrid');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
 		$ʟ_tmp->render() /* line 6 */;
-	}
-
-
-	/** n:block="title" on line 4 */
-	public function blockTitle(array $ʟ_args): void
-	{
-		extract($this->params);
-		extract($ʟ_args);
-		unset($ʟ_args);
-
-		echo '<h1>';
-		echo LR\Filters::escapeHtmlText($pageTitle) /* line 4 */;
-		echo '</h1>
-';
 	}
 }
