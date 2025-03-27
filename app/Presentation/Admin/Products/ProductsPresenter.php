@@ -8,10 +8,7 @@ use App\Presentation\Admin\AdminPresenter;
 use App\Presentation\Accessory\Repository\ProductRepository;
 use App\Presentation\Accessory\Repository\CategoryRepository;
 use Nette\Application\UI\Form;
-// Remove these unnecessary imports
-// use Nette\Utils\FileSystem;
-// use Nette\Utils\Image;
-// use Nette\Utils\Random;
+use Ublaboo\DataGrid\DataGrid;
 
 final class ProductsPresenter extends AdminPresenter
 {
@@ -60,7 +57,26 @@ final class ProductsPresenter extends AdminPresenter
         ]);
     }
     
-    public function actionDelete(int $id): void
+    // public function actionDelete(int $id): void
+    // {
+    //     $product = $this->productRepository->getById($id);
+        
+    //     if (!$product) {
+    //         $this->flashMessage('Produkt nebyl nalezen.', 'danger');
+    //         $this->redirect('default');
+    //     }
+        
+    //     // Smazání produktu z databáze
+    //     $this->productRepository->delete($id);
+        
+    //     $this->flashMessage('Produkt byl úspěšně smazán.', 'success');
+    //     $this->redirect('default');
+    // }
+
+    /**
+     * Signal handler for delete action from DataGrid
+     */
+    public function handleDelete(int $id): void
     {
         $product = $this->productRepository->getById($id);
         
@@ -137,5 +153,44 @@ final class ProductsPresenter extends AdminPresenter
         }
         
         $this->redirect('default');
+    }
+
+    protected function createComponentProductsGrid(): DataGrid
+    {
+        $grid = new DataGrid();
+        $grid->setPrimaryKey('id');
+
+        // Data source - using an array or Dibi/Doctrine/Nette\Database
+        $grid->setDataSource($this->productRepository->getAll());
+
+        // Columns
+        $grid->addColumnText('name', 'Název')
+            ->setSortable()
+            ->setFilterText();
+
+        $grid->addColumnText('price', 'Cena')
+            ->setSortable()
+            ->setFilterRange();
+
+        $grid->addColumnText('stock_quantity', 'Skladem')
+            ->setSortable()
+            ->setFilterRange();
+
+        $grid->addColumnText('category_id', 'Kategorie')
+            ->setRenderer(function ($item) {
+                return $item->ref('categories', 'category_id')->name;
+            });
+
+        // Actions (Edit & Delete)
+        $grid->addAction('edit', 'Upravit', 'edit')
+            ->setIcon('edit')
+            ->setClass('btn btn-sm btn-primary');
+
+        $grid->addAction('delete', 'Smazat', 'delete!')
+            ->setIcon('trash')
+            ->setClass('btn btn-sm btn-danger')
+            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcete smazat tento produkt?'));
+
+        return $grid;
     }
 }

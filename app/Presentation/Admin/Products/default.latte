@@ -3,58 +3,13 @@
 {block content}
 <div class="container-fluid">
     <h1 class="mt-4">Správa produktů</h1>
-    
+
     <div class="mb-4">
         <a href="{$basePath}/admin/products/add" class="btn btn-success">
             <i class="fas fa-plus"></i> Přidat nový produkt
         </a>
     </div>
-    
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="productsTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Název</th>
-                            <th>Cena</th>
-                            <th>Skladem</th>
-                            <th>Kategorie</th>
-                            <th>Akce</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foreach $products as $product}
-                        <tr>
-                            <td>{$product->id}</td>
-                            <td>{$product->name}</td>
-                            <td>{$product->price} Kč</td>
-                            <td>
-                                {if $product->stock_quantity <= 0}
-                                    <span class="badge bg-danger">Vyprodáno</span>
-                                {elseif $product->stock_quantity < 5}
-                                    <span class="badge bg-warning">{$product->stock_quantity} ks</span>
-                                {else}
-                                    <span class="badge bg-success">{$product->stock_quantity} ks</span>
-                                {/if}
-                            </td>
-                            <td>{$product->ref('categories', 'category_id')->name}</td>
-                            <td>
-                                <a href="{$basePath}/admin/products/edit/{$product->id}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i> Upravit
-                                </a>
-                                <a href="{$basePath}/admin/products/delete/{$product->id}" class="btn btn-sm btn-danger" 
-                                   onclick="return confirm('Opravdu chcete smazat tento produkt?');">
-                                    <i class="fas fa-trash"></i> Smazat
-                                </a>
-                            </td>
-                        </tr>
-                        {/foreach}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+
+    {control productsGrid}
 </div>
 {/block}

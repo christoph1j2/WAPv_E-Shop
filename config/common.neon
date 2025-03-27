@@ -16,7 +16,7 @@ database:
 
 latte:
 	strictTypes: yes
-	strictParsing: yes
+	strictParsing: no
 	extensions:
 		- App\Presentation\Accessory\LatteExtension
 

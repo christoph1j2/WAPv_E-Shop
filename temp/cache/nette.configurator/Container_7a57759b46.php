@@ -859,7 +859,7 @@ class Container_7a57759b46 extends Nette\DI\Container
 				$service->setTempDirectory('C:\xampp\htdocs\WAPv_E-Shop/temp/cache/latte');
 				$service->setAutoRefresh(true);
 				$service->setStrictTypes(true);
-				$service->setStrictParsing(true);
+				$service->setStrictParsing(false);
 				$service->enablePhpLinter(null);
 				$service->setLocale(null);
 				func_num_args() && $service->addExtension(new Nette\Bridges\ApplicationLatte\UIExtension(func_get_arg(0)));
