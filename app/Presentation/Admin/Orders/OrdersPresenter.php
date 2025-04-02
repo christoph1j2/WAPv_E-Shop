@@ -269,3 +269,40 @@ final class OrdersPresenter extends AdminPresenter
         $this->redirect('this');
     }
 }
+
+
+/*//cisty js
+document.addEventListener("DOMContentLoaded", function ()
+{
+    document.querySelectorAll('[data-toggle="dropdown"]').forEach(element =>
+    {
+        element.setAttribute("data-bs-toggle", "dropdown");
+    });
+});
+
+//jquery1
+$(document).on('ready ajaxComplete', function ()
+{
+    $('[data-toggle]').each(function ()
+    {
+        const $el = $(this);
+        const toggle = $el.attr('data-toggle');
+
+        $el.attr('data-bs-toggle', toggle);
+
+        $el.removeAttr('data-toggle');
+    });
+});
+
+//jquery2
+$(document).ready(function ()
+{
+    $('[data-toggle]').each(function ()
+    {
+        const $el = $(this);
+        const toggle = $el.attr('data-toggle');
+
+        $el.attr('data-bs-toggle', toggle);
+        $el.removeAttr('data-toggle');
+    });
+});*/
