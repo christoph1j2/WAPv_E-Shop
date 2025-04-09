@@ -158,26 +158,50 @@ final class UsersPresenter extends AdminPresenter
         $grid = new DataGrid();
         $grid->setPrimaryKey('id');
         
-        // Enable AJAX
-        //$grid->setAjaxRequest();
-        
         // Data source
         $grid->setDataSource($this->userRepository->getAll());
         
-        // Columns
+        // Columns with inline editing
         $grid->addColumnText('id', 'ID')
             ->setSortable()
             ->setFilterText();
             
         $grid->addColumnText('name', 'Jméno')
+            ->setEditableCallback(function($id, $value) {
+                try {
+                    $this->userRepository->update((int)$id, ['name' => $value]);
+                    return $value;
+                } catch (\Exception $e) {
+                    return false;
+                }
+            })
             ->setSortable()
             ->setFilterText();
             
         $grid->addColumnText('email', 'E-mail')
+            ->setEditableCallback(function($id, $value) {
+                if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    return false;
+                }
+                try {
+                    $this->userRepository->update((int)$id, ['email' => $value]);
+                    return $value;
+                } catch (\Exception $e) {
+                    return false;
+                }
+            })
             ->setSortable()
             ->setFilterText();
             
         $grid->addColumnText('phone', 'Telefon')
+            ->setEditableCallback(function($id, $value) {
+                try {
+                    $this->userRepository->update((int)$id, ['phone' => $value]);
+                    return $value;
+                } catch (\Exception $e) {
+                    return false;
+                }
+            })
             ->setSortable()
             ->setFilterText();
             
@@ -191,7 +215,9 @@ final class UsersPresenter extends AdminPresenter
                 ->setClass('btn-danger')
                 ->endOption();
         
-        $statusColumn->onChange[] = [$this, 'userStatusChange'];
+        $statusColumn->onChange[] = function($id, $status) {
+            $this->redirect('toggleStatus!', ['id' => (int)$id]);
+        };
         
         // Admin role column with toggle
         $adminColumn = $grid->addColumnStatus('is_admin', 'Administrátor')
@@ -203,51 +229,105 @@ final class UsersPresenter extends AdminPresenter
                 ->setClass('btn-secondary')
                 ->endOption();
         
-        $adminColumn->onChange[] = [$this, 'userAdminChange'];
+        $adminColumn->onChange[] = function($id, $status) {
+            $this->redirect('toggleAdmin!', ['id' => (int)$id]);
+        };
         
-        // // Filter for status column
-        // $grid->getColumn('active')->addFilterSelect([
-        //     '' => 'Všichni',
-        //     true => 'Aktivní',
-        //     false => 'Neaktivní'
-        // ]);
+        // Filter for status column
+        $grid->addFilterSelect('active', 'Stav:', [
+            '' => 'Všichni',
+            '1' => 'Aktivní',
+            '0' => 'Neaktivní'
+        ]);
         
-        // // Filter for admin column
-        // $grid->getColumn('is_admin')->addFilterSelect([
-        //     '' => 'Všichni',
-        //     true => 'Administrátoři',
-        //     false => 'Běžní uživatelé'
-        // ]);
+        // Filter for admin column
+        $grid->addFilterSelect('is_admin', 'Administrátor:', [
+            '' => 'Všichni',
+            '1' => 'Administrátoři',
+            '0' => 'Běžní uživatelé'
+        ]);
         
         // Created at column
         $grid->addColumnDateTime('created_at', 'Registrován')
             ->setFormat('d.m.Y H:i')
-            ->setSortable()
-            //->setFilterDateRange()
-            ;
+            ->setSortable();
+        $grid->addFilterDateRange('created_at', 'Datum registrace:');
             
         // Actions
         $grid->addAction('edit', 'Upravit', 'edit')
             ->setIcon('pencil')
             ->setClass('btn btn-sm btn-primary');
+        
+        // Inline add functionality (bez hesla podle zadání)
+        $grid->addInlineAdd()
+            ->setPositionTop()
+            ->onControlAdd[] = function($container) {
+                $container->addText('name', '')
+                    ->setRequired('Zadejte jméno uživatele')
+                    ->setHtmlAttribute('placeholder', 'Jméno');
+                    
+                $container->addText('email', '')
+                    ->setRequired('Zadejte e-mail uživatele')
+                    ->addRule(\Nette\Forms\Form::EMAIL, 'Zadejte platný e-mail')
+                    ->setHtmlAttribute('placeholder', 'E-mail');
+                    
+                $container->addText('phone', '')
+                    ->setHtmlAttribute('placeholder', 'Telefon');
+                    
+                $container->addTextArea('address', '')
+                    ->setHtmlAttribute('placeholder', 'Adresa');
+                    
+                $container->addCheckbox('is_admin', 'Administrátor')
+                    ->setDefaultValue(false);
+                    
+                $container->addCheckbox('is_editor', 'Editor')
+                    ->setDefaultValue(false);
+            };
             
+        $grid->getInlineAdd()->onSubmit[] = function($values) {
+            try {
+                $userData = [
+                    'name' => $values['name'],
+                    'email' => $values['email'],
+                    'phone' => $values['phone'] ?? '',
+                    'address' => $values['address'] ?? '',
+                    'is_admin' => isset($values['is_admin']) ? (bool)$values['is_admin'] : false,
+                    'is_editor' => isset($values['is_editor']) ? (bool)$values['is_editor'] : false,
+                    'active' => true,
+                    'created_at' => new \DateTime(),
+                    // Heslo není nastaveno záměrně - podle zadání
+                ];
+                
+                $this->userRepository->insert($userData);
+                $this->flashMessage('Uživatel byl úspěšně přidán. Uživatel si musí nastavit heslo pomocí funkce "Zapomenuté heslo".', 'success');
+                return true;
+            } catch (\Exception $e) {
+                $this->flashMessage('Při vytváření uživatele došlo k chybě: ' . $e->getMessage(), 'danger');
+                return false;
+            }
+        };
+        
+        // Nastavení stránkování
+        $grid->setPagination(true);
+        $grid->setItemsPerPageList([10, 20, 50, 100]);
+        
         return $grid;
     }
-    
+
     /**
-     * Callback for user status change in DataGrid
+     * Callback for user status change in DataGrid - opraveno pro správné typování
      */
-    public function userStatusChange(int $id, bool $status): void
+    public function userStatusChange($id, $status): void
     {
-        $this->redirect('toggleStatus!', ['id' => $id]);
+        $this->redirect('toggleStatus!', ['id' => (int)$id]);
     }
-    
+
     /**
-     * Callback for user admin role change in DataGrid
+     * Callback for user admin role change in DataGrid - opraveno pro správné typování
      */
-    public function userAdminChange(int $id, bool $status): void
+    public function userAdminChange($id, $status): void
     {
-        $this->redirect('toggleAdmin!', ['id' => $id]);
+        $this->redirect('toggleAdmin!', ['id' => (int)$id]);
     }
 
     protected function createComponentUserForm(): Form

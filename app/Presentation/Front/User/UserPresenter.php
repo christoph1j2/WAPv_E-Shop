@@ -10,6 +10,7 @@ use App\Presentation\Accessory\Repository\OrderRepository;
 use App\Presentation\Accessory\Repository\ProductRepository;
 use App\Presentation\Front\FrontPresenter;
 use Nette\Application\UI\Form;
+use Ublaboo\DataGrid\DataGrid;
 
 final class UserPresenter extends FrontPresenter
 {
@@ -268,11 +269,67 @@ final class UserPresenter extends FrontPresenter
             $this->redirect('Login:default');
         }
         
-        $userId = $this->getUser()->getIdentity()->id;
-        $orders = $this->userRepository->findOrders($userId);
-        
         $this->template->pageTitle = 'Moje objednávky';
-        $this->template->orders = $orders;
+        // DataGrid se stará o načtení objednávek - není potřeba předávat do šablony
+    }
+
+    /**
+     * Komponenta DataGrid pro výpis objednávek uživatele
+     */
+    protected function createComponentOrdersGrid(): DataGrid
+    {
+        $grid = new DataGrid();
+        $grid->setPrimaryKey('id');
+        
+        // Získání ID přihlášeného uživatele
+        $userId = $this->getUser()->getId();
+        
+        // Data source - pouze objednávky přihlášeného uživatele
+        $grid->setDataSource($this->orderRepository->getOrdersByUser($userId));
+        
+        // Sloupce
+        $grid->addColumnText('id', 'Číslo objednávky')
+            ->setSortable();
+        $grid->addFilterText('id', 'Hledat číslo:');
+        
+        $grid->addColumnDateTime('created_at', 'Datum vytvoření')
+            ->setFormat('d.m.Y H:i')
+            ->setSortable();
+        $grid->addFilterDateRange('created_at', 'Období:');
+        
+        $grid->addColumnText('total_price', 'Celková cena')
+            ->setSortable()
+            ->setRenderer(function ($row) {
+                return number_format($row->total_price, 2, ',', ' ') . ' Kč';
+            });
+        $grid->addFilterRange('total_price', 'Cena:');
+        
+        // Stavový sloupec
+        $statusOptions = [
+            'pending' => 'Čeká na zpracování',
+            'processing' => 'Zpracovává se',
+            'shipped' => 'Odesláno',
+            'delivered' => 'Doručeno',
+            'cancelled' => 'Zrušeno'
+        ];
+        
+        $grid->addColumnText('status', 'Stav')
+            ->setRenderer(function($row) use ($statusOptions) {
+                return $statusOptions[$row->status] ?? $row->status;
+            });
+        $grid->addFilterSelect('status', 'Stav:', ['' => '-- Všechny --'] + $statusOptions);
+        
+        // Actions
+        $grid->addAction('orderDetail', 'Detail', 'orderDetail')
+            ->setIcon('eye')
+            ->setClass('btn btn-sm btn-primary');
+        
+        // Nastavení stránkování
+        $grid->setPagination(true);
+        $grid->setItemsPerPageList([5, 10, 20, 50]);
+        $grid->setDefaultPerPage(10);
+        
+        return $grid;
     }
 
     /**

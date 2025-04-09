@@ -1,0 +1,15 @@
+admin 
+- dashboard - tlacitka na redirect
+- editor - pro spravce moznost updateproduct
+- orders - prehled objednavek
+- products - prehled produktu, moznost addproduct
+- users - prehled useru
+
+front
+- cart - kosik, checkout (form?)
+- catalog - catalog, detail produktu, kategorie
+
+user
+- profile - prehled sveho profilu, objenavky, forgotpassword
+- register, login, update, ...
+

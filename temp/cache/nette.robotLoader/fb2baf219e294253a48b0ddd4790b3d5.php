@@ -105,17 +105,17 @@ return array (
     'App\\Presentation\\Admin\\Orders\\OrdersPresenter' => 
     array (
       0 => 'C:\\xampp\\htdocs\\WAPv_E-Shop\\app\\Presentation\\Admin\\Orders\\OrdersPresenter.php',
-      1 => 1743548860,
+      1 => 1744182663,
     ),
     'App\\Presentation\\Admin\\Products\\ProductsPresenter' => 
     array (
       0 => 'C:\\xampp\\htdocs\\WAPv_E-Shop\\app\\Presentation\\Admin\\Products\\ProductsPresenter.php',
-      1 => 1743548860,
+      1 => 1744183213,
     ),
     'App\\Presentation\\Admin\\Users\\UsersPresenter' => 
     array (
       0 => 'C:\\xampp\\htdocs\\WAPv_E-Shop\\app\\Presentation\\Admin\\Users\\UsersPresenter.php',
-      1 => 1743548860,
+      1 => 1744182810,
     ),
     'App\\Presentation\\BasePresenter' => 
     array (
@@ -165,48 +165,15 @@ return array (
     'App\\Presentation\\Front\\User\\UserPresenter' => 
     array (
       0 => 'C:\\xampp\\htdocs\\WAPv_E-Shop\\app\\Presentation\\Front\\User\\UserPresenter.php',
-      1 => 1742887029,
+      1 => 1744185119,
     ),
   ),
   1 => 
   array (
-    'Nette\\Bridges\\Assets\\DIExtension' => 3,
-    'null' => 3,
-    'App\\Presentation\\Front\\User\\UserProfileTemplate' => 3,
-    'App\\Presentation\\Front\\User\\UserTemplate' => 3,
-    'App\\Presentation\\Front\\Catalog\\CatalogDefaultTemplate' => 3,
-    'App\\Presentation\\Front\\Catalog\\CatalogTemplate' => 3,
-    'App\\Presentation\\Front\\User\\UserOrderDetailTemplate' => 3,
-    'App\\Presentation\\Front\\User\\UserLogoutTemplate' => 3,
-    'App\\Presentation\\Front\\Home\\HomeDefaultTemplate' => 3,
-    'App\\Presentation\\Front\\Home\\HomeTemplate' => 3,
-    'App\\Presentation\\Front\\Cart\\CartDefaultTemplate' => 3,
-    'App\\Presentation\\Front\\Cart\\CartTemplate' => 3,
-    'App\\Presentation\\Front\\Login\\LoginDefaultTemplate' => 3,
-    'App\\Presentation\\Front\\Login\\LoginTemplate' => 3,
-    'App\\Presentation\\Admin\\Editor\\EditorDefaultTemplate' => 1,
-    'App\\Presentation\\Admin\\Editor\\EditorTemplate' => 1,
-    'App\\Presentation\\Admin\\Orders\\OrdersDefaultTemplate' => 3,
-    'App\\Presentation\\Admin\\Orders\\OrdersTemplate' => 3,
-    'App\\Presentation\\Admin\\Orders\\OrdersDetailTemplate' => 3,
-    'App\\Presentation\\Admin\\Users\\UsersDetailTemplate' => 2,
-    'App\\Presentation\\Admin\\Users\\UsersTemplate' => 3,
-    'App\\Presentation\\Admin\\Users\\UsersDefaultTemplate' => 3,
-    'App\\Presentation\\Admin\\Products\\ProductsEditTemplate' => 2,
-    'App\\Presentation\\Admin\\Products\\ProductsTemplate' => 3,
-    'App\\Presentation\\Admin\\Products\\ProductsDefaultTemplate' => 3,
-    'App\\Presentation\\Front\\Catalog\\CatalogDetailTemplate' => 3,
-    'App\\Presentation\\Front\\Cart\\CartAddTemplate' => 2,
-    'App\\Presentation\\Front\\Cart\\CartCheckoutTemplate' => 3,
-    'App\\Presentation\\Admin\\Dashboard\\DashboardDefaultTemplate' => 3,
-    'App\\Presentation\\Admin\\Dashboard\\DashboardTemplate' => 3,
-    'Ublaboo\\DataGrid\\DataGridTemplate' => 3,
-    'Ublaboo\\DataGrid\\Components\\DataGridPaginator\\DataGridPaginatorTemplate' => 3,
-    'App\\Presentation\\Admin\\Products\\ProductsAddTemplate' => 1,
-    'App\\Presentation\\Admin\\Users\\UsersEditTemplate' => 2,
-    'Ublaboo\\DataGrid\\DataGrid' => 1,
-    'App\\Presentation\\Front\\Register\\RegisterDefaultTemplate' => 2,
-    'App\\Presentation\\Front\\Register\\RegisterTemplate' => 2,
+    'Nette\\Bridges\\Assets\\DIExtension' => 1,
+    'null' => 1,
+    'App\\Presentation\\Front\\Home\\HomeDefaultTemplate' => 2,
+    'App\\Presentation\\Front\\Home\\HomeTemplate' => 2,
   ),
   2 => 
   array (

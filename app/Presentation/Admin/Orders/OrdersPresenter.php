@@ -104,6 +104,8 @@ final class OrdersPresenter extends AdminPresenter
             } else {
                 $this->redirect('default');
             }
+        } catch (\Nette\Application\AbortException $e) {
+                // !nedelat nic, je to guta
         } catch (\Exception $e) {
             $this->flashMessage('Chyba při změně stavu: ' . $e->getMessage(), 'danger');
             $this->redirect('default');
@@ -214,12 +216,14 @@ final class OrdersPresenter extends AdminPresenter
         return $grid;
     }
 
+
     /**
      * Callback for status change in DataGrid
      */
-    public function changeOrderStatus(int $id, string $status): void
+    public function changeOrderStatus($id, string $status): void
     {
-        $this->redirect('changeStatus!', ['id' => $id, 'status' => $status]);
+        // Přetypování ID na int až při předávání do handleru
+        $this->redirect('changeStatus!', ['id' => (int)$id, 'status' => $status]);
     }
 
     protected function createComponentChangeStatusForm(): Form
@@ -265,8 +269,14 @@ final class OrdersPresenter extends AdminPresenter
             'status' => $values['status']
         ]);
         
-        $this->flashMessage('Stav objednávky byl úspěšně aktualizován.', 'success');
-        $this->redirect('this');
+        try {
+            $this->flashMessage('Stav objednávky byl úspěšně aktualizován.', 'success');
+            $this->redirect('this');
+        }
+        catch (\Nette\Application\AbortException $e) {
+                // !nedelat nic, je to guta
+        }
+
     }
 }
 

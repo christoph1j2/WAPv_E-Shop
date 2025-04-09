@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{ifset title}{include title|stripHtml} | {/ifset}E-shop</title>
+
+    <link rel="stylesheet" href="{$basePath}/assets/bootstrap/css/bootstrap.css">
+    <script src="{$basePath}/assets/bootstrap/js/bootstrap.js"></script>
+
+    {* jQuery 3.7.1 - POTREBUJE HO nette.ajax.js !!! *}
+    <script src="{$basePath}/assets/jquery/jquery-3.7.1.js"></script>
+
+    {* Nette.ajax.js - MUSI PRIJIT PRED DATAGRIDem (ten se na nette.ajax.js odvolava) !!! *}
+    <script src="{$basePath}/assets/nette/nette.ajax.js"></script>
+
+    {* Ublaboo datagrid 6.10.0 *}
+    <link href="{$basePath}/assets/datagrid/datagrid.css" rel="stylesheet">
+    <script src="{$basePath}/assets/datagrid/datagrid.js"></script>
+    <script src="{$basePath}/assets/datagrid/datagrid-instant-url-refresh.js"></script>
+
+    <link href="{$basePath}/assets/datagrid/datagrid-spinners.css" rel="stylesheet">
+    <script src="{$basePath}/assets/datagrid/datagrid-spinners.js"></script>
+</head>
+<body>
+{include ../Components/Navigation/navigation.latte}
+{block content}{/block}
+{include ../Components/Footer/footer.latte}
+
+	{* Skripty *}
+	{block scripts}
+    {*		<script src="https://unpkg.com/nette-forms@3/src/assets/netteForms.js"></script>*}
+    <script src="{$basePath}/assets/nette/netteForms.js"></script>
+    <script>
+        {* Inicializace *}
+        $(function() {
+            // Inicializace Nette.ajax
+            $.nette.init();
+
+            // Zaplata pro Datagrid
+            $('[data-toggle]').each(function ()
+            {
+                const $el = $(this);
+                const toggle = $el.attr('data-toggle');
+
+                $el.attr('data-bs-toggle', toggle);
+                // Mozna prilis "brutalni"
+                // $el.removeAttr('data-toggle');
+            });
+        });
+    </script>
+    {/block}
+</body>
+</html>
